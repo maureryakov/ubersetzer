@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 
 from telegram import Update, ParseMode, message
 from telegram.ext import Updater, CallbackContext, MessageHandler, Filters
@@ -105,7 +106,10 @@ def unknown(update: Update, context: CallbackContext):
 
 if __name__ == "__main__":
 
-	TOKEN = ''
+	TOKEN = ""
+	NAME = ""
+
+	PORT = os.environ.get('PORT')
 
 	updater = Updater(token=TOKEN, use_context=True)
 	dispatcher = updater.dispatcher
@@ -132,5 +136,8 @@ if __name__ == "__main__":
 	dispatcher.add_handler(translate_handler)
 	dispatcher.add_handler(unknown_handler)
 
-	updater.start_polling()
+	updater.start_webhook(listen="0.0.0.0",
+							port=int(PORT),
+							url_path=TOKEN,
+							webhook_url=f"https://{NAME}.herokuapp.com/{TOKEN}")
 	updater.idle()
