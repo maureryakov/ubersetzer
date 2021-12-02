@@ -2,30 +2,34 @@ import json
 import logging
 import os
 
-from telegram import Update, ParseMode, message
+from telegram import Update, ParseMode
 from telegram.ext import Updater, CallbackContext, MessageHandler, Filters
 from telegram.ext import CommandHandler
 from translate import Translator
 
 
-from_lang = 'en'
-to_lang = 'fa'
+file = open('language_codes.json', 'r')
+data = json.load(file)
+
+
+def check_bot_data_for_user(update: Update, context: CallbackContext):
+	if not update.effective_user['id'] in context.bot_data.keys():
+		context.bot_data[update.effective_user['id']] = ['en', 'fa']
 
 
 
 def validate_language(lang):
-	file = open('language_codes.json', 'r')
-	data = json.load(file)
 	for i in data['languages']:
 		if lang == i:
 			return True
 	return False
-	
+
 
 
 def start(update: Update, context: CallbackContext):
-	user = update.effective_user['username']
-	text = f'Hello @{user}!\n\n'
+	check_bot_data_for_user(update, context)
+	username = update.effective_user['username']
+	text = f'Hello @{username}!\n\n'
 	description = 'This bot helps you to translate different words and sentences into the languages you want.\n\n'
 	help = '/help\tto know how to use bot\n/list\tto see supported languages list\n/creator\tto know about me'
 	start_message = text + description + help
@@ -34,10 +38,11 @@ def start(update: Update, context: CallbackContext):
 
 
 def change_from_lang(update: Update, context: CallbackContext):
-	global from_lang
+	check_bot_data_for_user(update, context)
 	lang = ' '.join(context.args)
+	user = update.effective_user['id']
 	if validate_language(lang):
-		from_lang = lang
+		context.bot_data[user][0] = lang
 		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Changed Successfully!")
 	else:
 		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Change Failed!")
@@ -45,10 +50,11 @@ def change_from_lang(update: Update, context: CallbackContext):
 
 
 def change_to_lang(update: Update, context: CallbackContext):
-	global to_lang
+	check_bot_data_for_user(update, context)
 	lang = ' '.join(context.args)
+	user = update.effective_user['id']
 	if validate_language(lang):
-		to_lang = lang
+		context.bot_data[user][1] = lang
 		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Changed Successfully!")
 	else:
 		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Change Failed!")
@@ -56,8 +62,6 @@ def change_to_lang(update: Update, context: CallbackContext):
 
 
 def list_langs(update: Update, context: CallbackContext):
-	file = open('language_codes.json', 'r')
-	data = json.load(file)
 	replied_text = '<b>List of languages and their ISO 639-1 codes:</b>\n\n'
 
 	counter = 1
@@ -87,8 +91,12 @@ def help(update: Update, context: CallbackContext):
 
 
 def translate(update: Update, context: CallbackContext):
+	check_bot_data_for_user(update, context)
 	text = update.message.text
-	translated_text = Translator(to_lang=to_lang, from_lang=from_lang).translate(text)
+	user = update.effective_user['id']
+	from_lang = context.bot_data[user][0]
+	to_lang = context.bot_data[user][1]
+	translated_text = Translator(provider='mymemory', to_lang=to_lang, from_lang=from_lang, email='amirsarebani1381@gmail.com').translate(text)
 	update.message.reply_text(reply_to_message_id=update.message.message_id, text=translated_text)
 
 
