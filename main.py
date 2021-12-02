@@ -43,9 +43,9 @@ def change_from_lang(update: Update, context: CallbackContext):
 	user = update.effective_user['id']
 	if validate_language(lang):
 		context.bot_data[user][0] = lang
-		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Changed Successfully!")
+		context.bot.send_message(chat_id=update.effective_chat.id, text="Input Language Changed Successfully!")
 	else:
-		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Change Failed!")
+		context.bot.send_message(chat_id=update.effective_chat.id, text="Input Language Change Failed!")
 
 
 
@@ -55,9 +55,9 @@ def change_to_lang(update: Update, context: CallbackContext):
 	user = update.effective_user['id']
 	if validate_language(lang):
 		context.bot_data[user][1] = lang
-		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Changed Successfully!")
+		context.bot.send_message(chat_id=update.effective_chat.id, text="Output Language Changed Successfully!")
 	else:
-		context.bot.send_message(chat_id=update.effective_chat.id, text="Language Change Failed!")
+		context.bot.send_message(chat_id=update.effective_chat.id, text="Output Language Change Failed!")
 	
 
 
@@ -104,7 +104,7 @@ def creator(update: Update, context: CallbackContext):
 
 
 def help(update: Update, context: CallbackContext):
-	message = 'To translate your text, just type it for the bot and get the translation in a short time.\n\nYou can use the /from and /to commands to change the input or output language.\nThe default is English to Persian. To change the input or output language, enter the appropriate command and type the ISO 639-1 code of your choice in front of it. This bot supports many languages, list of those languages and their ISO 639-1 code is available in /list.\n\nExamples of input and output language change:\n\n\t/from fa\n\t/to en'
+	message = 'To translate your text, just type it for the bot and get the translation in a short time.\n\nTo see current input and output languages use /current command.\nYou can use the /from and /to commands to change the input or output language.You can also use /swap command to easily swap input output languages.\nThe default is English to Persian. To change the input or output language, enter the appropriate command and type the ISO 639-1 code of your choice in front of it. This bot supports many languages, list of those languages and their ISO 639-1 code is available in /list.\n\nExamples of input and output language change:\n\nChange input language: \t/from fa\nChange output language: \t/to en'
 	context.bot.send_message(chat_id=update.effective_chat.id, text=message)
 
 
