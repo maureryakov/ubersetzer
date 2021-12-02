@@ -133,9 +133,12 @@ def unknown(update: Update, context: CallbackContext):
 
 if __name__ == "__main__":
 
+	# Set these variable to the appropriate values
 	TOKEN = ""
+	# Name just should set if you want to deploy your bot on Heroku (it's your app name)
 	NAME = ""
 
+	# Port is given by Heroku
 	PORT = os.environ.get('PORT')
 
 	updater = Updater(token=TOKEN, use_context=True)
@@ -167,8 +170,12 @@ if __name__ == "__main__":
 	dispatcher.add_handler(translate_handler)
 	dispatcher.add_handler(unknown_handler)
 
-	updater.start_webhook(listen="0.0.0.0",
-							port=int(PORT),
-							url_path=TOKEN,
-							webhook_url=f"https://{NAME}.herokuapp.com/{TOKEN}")
+	# Comment this if you want to run your bot from your system
+	# updater.start_webhook(listen="0.0.0.0",
+	# 						port=int(PORT),
+	# 						url_path=TOKEN,
+	# 						webhook_url=f"https://{NAME}.herokuapp.com/{TOKEN}")
+
+	# comment this if you want to deploy your bot on Heroku
+	updater.start_polling()
 	updater.idle()
