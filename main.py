@@ -61,6 +61,25 @@ def change_to_lang(update: Update, context: CallbackContext):
 	
 
 
+def current(update: Update, context: CallbackContext):
+	check_bot_data_for_user(update, context)
+	user = update.effective_user['id']
+	message = f'Input Language: <b>{context.bot_data[user][0]}</b>\nOutput Language: <b>{context.bot_data[user][1]}</b>'
+	context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode=ParseMode.HTML)
+
+
+
+def swap(update: Update, context: CallbackContext):
+	check_bot_data_for_user(update, context)
+	user = update.effective_user['id']
+	from_lang = context.bot_data[user][0]
+	to_lang = context.bot_data[user][1]
+	context.bot_data[user][0] = to_lang
+	context.bot_data[user][1] = from_lang
+	context.bot.send_message(chat_id=update.effective_chat.id, text="Languages Swapped Successfully!")
+
+
+
 def list_langs(update: Update, context: CallbackContext):
 	replied_text = '<b>List of languages and their ISO 639-1 codes:</b>\n\n'
 
@@ -127,6 +146,8 @@ if __name__ == "__main__":
 	start_handler = CommandHandler('start', start)
 	change_from_lang_handler = CommandHandler('from', change_from_lang)
 	change_to_lang_handler = CommandHandler('to', change_to_lang)
+	current_handler = CommandHandler('current', current)
+	swap_handler = CommandHandler('swap', swap)
 	list_handler = CommandHandler('list', list_langs)
 	creator_handler = CommandHandler('creator', creator)
 	help_handler = CommandHandler('help', help)
@@ -137,6 +158,8 @@ if __name__ == "__main__":
 	dispatcher.add_handler(start_handler)
 	dispatcher.add_handler(change_from_lang_handler)
 	dispatcher.add_handler(change_to_lang_handler)
+	dispatcher.add_handler(current_handler)
+	dispatcher.add_handler(swap_handler)
 	dispatcher.add_handler(list_handler)
 	dispatcher.add_handler(creator_handler)
 	dispatcher.add_handler(help_handler)
