@@ -29,8 +29,8 @@ def validate_language(lang):
 def start(update: Update, context: CallbackContext):
 	check_bot_data_for_user(update, context)
 	username = update.effective_user['username']
-	text = f'Hello @{username}!\n\n'
-	description = 'This bot helps you to translate different words and sentences into the languages you want.\n\n'
+	text = f'Hello @{username}\n\n'
+	description = 'This bot helps you translate different words and sentences into the languages you want.\n\n'
 	help = '/help\tto know how to use bot\n/list\tto see supported languages list\n/creator\tto know about me'
 	start_message = text + description + help
 	context.bot.send_message(chat_id=update.effective_chat.id, text=start_message)
@@ -98,7 +98,7 @@ def list_langs(update: Update, context: CallbackContext):
 
 
 def creator(update: Update, context: CallbackContext):
-	message = 'Hi. I am Amir hossein Sarebani, the creator of this bot.\n\nI am very happy that you are using this bot and I hope the bot will help you in the best way.\nIf you see a problem or have an idea on how to improve the bot, you can contact me using the following communication channels:\n\nTelegram Id: @amirsarebani81\nGmail: amirsarebani1381@gmail.com\n\n\nIf this bot is useful for you, please introduce it to your other friends.'
+	message = 'Hi. I\'m Amir Hossein Sarebani, the creator of this bot.\n\nI am delighted that you are using this bot and I hope it\'s of great use to you.\nIf you notice a problem or have an idea on how to improve the bot, you can contact me using these communication channels:\n\nTelegram Id: @amirsarebani81\nGmail: amirsarebani1381@gmail.com\n\n\nIf this bot is useful for you, please introduce it to your other friends.'
 	context.bot.send_message(chat_id=update.effective_chat.id, text=message)
 
 
