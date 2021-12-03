@@ -10,28 +10,29 @@
 
 ## Introduction
 
-This project is a simple Telegram translator bot that receives a text from the user and translates it into any language. The robot supports more than a hundred different languages ​​for input and output, some of which are:
+This project is a simple Telegram translator bot that receives a text from the user and translates it into any language. The bot supports more than a hundred different languages ​​for input and output, some of which are:
 
-- Chinese
-- English
-- French
-- Persian
-- German
-- etc
+- *Chinese*
+- *English*
+- *French*
+- *Persian*
+- *German*
+- *etc*
 
 ## Bot Commands
 
 | Command | Description |
 | ------- | ----------- |
-| /start | Start the bot |
-| /help | Help |
-| /list | List available languages and their ISO 639-1 code |
-| /from | Change input language |
-| /to | Change output language |
-| /creator | Creator info |
-| /contact | Communication channels |
-| /current | See current input/output languages |
-| /swap | Swap input output languages |
+| **/start** | *Start the bot* |
+| **/help** | *Help* |
+| **/list** | *List of available languages and their ISO 639-1 code* |
+| **/from** | *Change input language* |
+| **/to** | *Change output language* |
+| **/creator** | *Creator info* |
+| **/contact** | *Communication channels* |
+| **/current** | *See current input/output languages* |
+| **/swap** | *Swap input and output languages* |
+| **/set** | *Set input/output languages* |
 
 ## Dependencies
 
@@ -41,10 +42,10 @@ This project is a simple Telegram translator bot that receives a text from the u
 
 ## Usage
 
-You can always see an active version of this robot [here](https://t.me/amir_translator_bot).
-To your version of this robot follow the steps below:
+You can always see an active version of this bot [here](https://t.me/amir_translator_bot).
+To run your version of this bot follow the steps below:
 
-1. get your personal API token from [@BotFather](https://t.me/botfather)
+1. Get your personal API token from [@BotFather](https://t.me/botfather)
 2. Clone the repository
 
    ```shell
