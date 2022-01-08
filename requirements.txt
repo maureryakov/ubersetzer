@@ -1,2 +1,6 @@
 python-telegram-bot>=13.4
 translate>=3.6
+future>=0.16.0
+certifi
+tornado>=5.1
+cryptography
