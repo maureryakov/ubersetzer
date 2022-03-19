@@ -1,6 +1,6 @@
 # Telegram Translator Bot
 
-![icon](translate.png)
+
 
 <font size="5"> *Simple Telegram Translator Bot* </font>
 
