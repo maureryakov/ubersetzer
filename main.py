@@ -145,7 +145,7 @@ def unknown(update: Update, context: CallbackContext):
 if __name__ == "__main__":
 
     # Set these variable to the appropriate values
-    TOKEN = "5053800157:AAHdHV2-jadL1T5TlCqYGPLPNlL_66tqd1o"
+    TOKEN = "TOKEN"
     # Name just should set if you want to deploy your bot on Heroku (it's your app name)
     NAME = "ubersetzer"
 
